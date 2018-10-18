@@ -1,0 +1,28 @@
+package com.js.worker.code;
+
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class Test6 {
+
+	public static void main(String[] args) throws IOException, InterruptedException {
+		DataOutputStream br = new DataOutputStream(new FileOutputStream("C:\\\\work\\\\test\\\\test5.txt"));
+		while (true) {
+			String msgId = "12324556";
+			String taskId = "5";
+			String info = "jinshuangend";
+			int len = 4 + msgId.length() + taskId.length() + info.length();
+			br.writeShort(len);
+			br.writeByte(msgId.length());
+			br.writeByte(taskId.length());
+			br.writeBytes(msgId);
+			br.writeBytes(taskId);
+			br.writeBytes(info);
+			br.flush();
+			Thread.sleep(10);
+		}
+
+	}
+
+}

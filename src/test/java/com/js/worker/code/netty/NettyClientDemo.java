@@ -17,7 +17,7 @@ public class NettyClientDemo {
 		NettyClient client = new NettyClient(host, 18000, conf);
 		client.start();
 		Thread.sleep(5000);
-		RpcMessage msg = new RpcMessage(Option.OPTIONS,"123","test",null,"holloWorld".getBytes());
+		RpcMessage msg = new RpcMessage(Option.OPTIONS,"123","test",null,"holloWorld\n123123".getBytes());
 		client.send(msg);
 	}
 

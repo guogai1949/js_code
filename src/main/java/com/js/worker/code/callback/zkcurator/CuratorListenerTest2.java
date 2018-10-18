@@ -12,18 +12,36 @@ import org.apache.curator.framework.recipes.cache.PathChildrenCache.StartMode;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.junit.Test;
 
 public class CuratorListenerTest2 {
 	
+	@Test
+	public void createZkClent() {
+		long start = System.currentTimeMillis();
+	 	CuratorFramework client = CuratorFrameworkFactory.newClient("192.168.161.28:2283,192.168.161.24:2283,192.168.161.25:2283", 
+	 			5000, 3000, new ExponentialBackoffRetry(1000, 3));
+//        CuratorFramework client = CuratorFrameworkFactory.builder()
+//            .connectString("192.168.161.28:2283,192.168.161.24:2283,192.168.161.25:2283")
+//            .sessionTimeoutMs(5000)
+//            .connectionTimeoutMs(3000)
+//            .retryPolicy(new ExponentialBackoffRetry(1000, 3))
+//            .build();
+        client.start();
+        System.out.println(System.currentTimeMillis() - start);
+	}
+	
 	 public static void main(String[] args) throws Exception {
-	        CuratorFramework client = CuratorFrameworkFactory.builder()
-	            .connectString("192.168.171.50:15560")
-	            .sessionTimeoutMs(5000)
-	            .connectionTimeoutMs(3000)
-	            .retryPolicy(new ExponentialBackoffRetry(1000, 3))
-	            .build();
+		 	long start = System.currentTimeMillis();
+		 	CuratorFramework client = CuratorFrameworkFactory.newClient("192.168.161.28:2283,192.168.161.24:2283,192.168.161.25:2283", 5000, 3000, new ExponentialBackoffRetry(1000, 3));
+//	        CuratorFramework client = CuratorFrameworkFactory.builder()
+//	            .connectString("192.168.161.28:2283,192.168.161.24:2283,192.168.161.25:2283")
+//	            .sessionTimeoutMs(5000)
+//	            .connectionTimeoutMs(3000)
+//	            .retryPolicy(new ExponentialBackoffRetry(1000, 3))
+//	            .build();
 	        client.start();
-	        
+	        System.out.println(System.currentTimeMillis() - start);
 //	        client.create()
 //	            .creatingParentsIfNeeded()
 //	            .forPath("/zk-huey/cnode", "hello".getBytes());
