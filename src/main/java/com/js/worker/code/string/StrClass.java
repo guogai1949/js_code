@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 public class StrClass {
 	
 	public static void main(String args[]) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		Person person = new Person();
+		Person person = new Person("aadsad");
 		Class[] clazzs = new Class[2];
 		clazzs[0] = "str".getClass();
 		Integer i =5;

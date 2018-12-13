@@ -26,5 +26,8 @@ public class Test3 {
 		test3.testCase(2);
 		System.out.println("===============3");
 		test3.testCase(3);
+		
+		String s = "";
+		System.out.println(s.length());
 	}
 }
