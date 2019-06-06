@@ -6,7 +6,7 @@ public class LiBoss implements Boss {
 	
 	private Employee employee;
 	
-	LiBoss(String name, Employee employee) {
+	public LiBoss(String name, Employee employee) {
 		this.name = name;
 		this.employee = employee;
 	}

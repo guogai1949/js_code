@@ -53,13 +53,13 @@ public class NettyServerHandler extends SimpleChannelUpstreamHandler {
         Object msg = e.getMessage();
         if (msg == null)
             return;       
-     
-        // enqueue the received message for processing
-        try {
-            server.enqueue((RpcMessage) msg, e.getChannel());
-        } catch (Exception ex) {
-            LOG.warn("Failed to enqueue a request message" + ex.toString(), ex);
-        }
+        LOG.info("receive msg :{}", msg);
+//        // enqueue the received message for processing
+//        try {
+//            server.enqueue((RpcMessage) msg, e.getChannel());
+//        } catch (Exception ex) {
+//            LOG.warn("Failed to enqueue a request message" + ex.toString(), ex);
+//        }
         
 //        NIOTest.setTestTime("receviceTime", receviceTime);
     }

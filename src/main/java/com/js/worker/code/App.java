@@ -1,5 +1,7 @@
 package com.js.worker.code;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -120,9 +122,15 @@ public class App {
 	        return result;
 	}
 	
-	public static void main(String args[]) {
-		App app =new App();
-		int[] nums = {-1,2,0,-3,-2,3,4,-5,-2,-7,1};
-		System.out.println(app.getABC(nums));
+	public static void main(String args[]) throws UnsupportedEncodingException {
+//		App app =new App();
+//		int[] nums = {-1,2,0,-3,-2,3,4,-5,-2,-7,1};
+//		System.out.println(app.getABC(nums));
+		
+		String str = "金双21323123";
+		byte[] byte1 = str.getBytes(Charset.forName("utf-8"));
+		String str1 = new String(byte1);
+		byte[] byte2 = str1.getBytes();
+		System.out.println(new String(byte2,"UTF-8"));
 	}
 }

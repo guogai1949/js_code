@@ -43,13 +43,14 @@ public class CuratorListenerTest1 {
     	LOG.info(LOG.getClass().toString());
     	ExecutorService pool = Executors.newFixedThreadPool(2);
         CuratorFramework client = getClient();
-        String path = "/demo";
+        String path = "/jstorm";
         try {
             CuratorListener listener = new CuratorListener() {
                 @Override
                 public void eventReceived(CuratorFramework client, CuratorEvent e) throws Exception {
-                    if (e.getType().equals(CuratorEventType.WATCHED)) {
+                    if (e.getType().equals(CuratorEventType.SET_ACL)) {
                         WatchedEvent event = e.getWatchedEvent();
+                        
                         System.out.println("watched");
                         System.out.println(e);
                     }
@@ -73,7 +74,7 @@ public class CuratorListenerTest1 {
             // 变更节点内容
 
             System.out.println("2222222");
-            client.setData().forPath(path,"3435544666464".getBytes());
+            client.setData().forPath(path,"34355446664641212312".getBytes());
             //
             System.out.println("3333333");
             client.getData().inBackground().forPath(path);
@@ -94,7 +95,7 @@ public class CuratorListenerTest1 {
     private static CuratorFramework getClient(){
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3);
         CuratorFramework client = CuratorFrameworkFactory.builder()
-                .connectString("192.168.171.50:15560")
+                .connectString("192.168.171.54:15560")
                 .retryPolicy(retryPolicy)
                 .sessionTimeoutMs(6000)
                 .connectionTimeoutMs(3000)

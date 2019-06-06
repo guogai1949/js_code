@@ -75,6 +75,8 @@ public class Test {
     } 
 
 	public static void main(String[] args) {
+		int c = '\n';
+		System.out.println(c);
 //		int[] nums = {-1};	
 //		int len = Test.removeDuplicates(nums);
 //		for(int i =0; i<len; i++) {

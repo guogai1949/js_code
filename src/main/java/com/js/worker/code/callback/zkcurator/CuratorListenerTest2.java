@@ -16,7 +16,7 @@ import org.junit.Test;
 
 public class CuratorListenerTest2 {
 	
-	@Test
+	
 	public void createZkClent() {
 		long start = System.currentTimeMillis();
 	 	CuratorFramework client = CuratorFrameworkFactory.newClient("192.168.161.28:2283,192.168.161.24:2283,192.168.161.25:2283", 
@@ -33,7 +33,7 @@ public class CuratorListenerTest2 {
 	
 	 public static void main(String[] args) throws Exception {
 		 	long start = System.currentTimeMillis();
-		 	CuratorFramework client = CuratorFrameworkFactory.newClient("192.168.161.28:2283,192.168.161.24:2283,192.168.161.25:2283", 5000, 3000, new ExponentialBackoffRetry(1000, 3));
+		 	CuratorFramework client = CuratorFrameworkFactory.newClient("192.168.171.54:15560", 5000, 3000, new ExponentialBackoffRetry(1000, 3));
 //	        CuratorFramework client = CuratorFrameworkFactory.builder()
 //	            .connectString("192.168.161.28:2283,192.168.161.24:2283,192.168.161.25:2283")
 //	            .sessionTimeoutMs(5000)
@@ -54,7 +54,7 @@ public class CuratorListenerTest2 {
 	        /**
 	         * 监听数据节点的变化情况
 	         */
-	        final NodeCache nodeCache = new NodeCache(client, "/zk-huey", false);
+	        final NodeCache nodeCache = new NodeCache(client, "/jstorm/test", false);
 	        nodeCache.start(true);
 	        nodeCache.getListenable().addListener(
 	            new NodeCacheListener() {
@@ -71,7 +71,7 @@ public class CuratorListenerTest2 {
 	        /**
 	         * 监听子节点的变化情况
 	         */
-	        final PathChildrenCache childrenCache = new PathChildrenCache(client, "/zk-huey", true);
+	        final PathChildrenCache childrenCache = new PathChildrenCache(client, "/jstorm/test", true);
 	        childrenCache.start(StartMode.POST_INITIALIZED_EVENT);
 	        childrenCache.getListenable().addListener(
 	            new PathChildrenCacheListener() {
@@ -96,12 +96,12 @@ public class CuratorListenerTest2 {
 	            pool
 	        );
 	        
-	        client.setData().forPath("/zk-huey/cnode", "world".getBytes());
+	        client.setData().forPath("/jstorm/test", "world".getBytes());
 	        Thread.sleep(10);
 //	        client.create().forPath("/zk-huey/cnode1");
 	        
 	        Thread.sleep(10 * 1000);
-	        client.getData().forPath("/zk-huey/cnode");
+	        client.getData().forPath("/jstorm/test");
 //	        pool.shutdown();
 //	        client.close();
 	    }

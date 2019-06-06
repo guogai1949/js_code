@@ -18,10 +18,17 @@ public class StaticOutClass {
 		 /* 在静态内部类中可以存在静态成员 */
 		public static String name = "huihui";
 		
+		public String toSex = "female";
+		
 		public void display() {
 			System.out.println("name:" + name);
 			//不能访问外部类的非静态成员变量
 //			System.out.println("sex:" + sex);
+		}
+		
+		public static void getSex() {
+			//静态方法访问只能访问外部类的静态变量
+//			System.out.println(sex);
 		}
 	}
 	
@@ -30,5 +37,12 @@ public class StaticOutClass {
 		System.out.println(InnerClass.name);
 		 /* 静态内部类 可以直接创建实例不需要依赖于外围类 */
 		new InnerClass().display();
+	}
+	
+	
+	public static void main(String[] args) {
+		
+		new InnerClass().display();
+		StaticOutClass.InnerClass innerClass = new StaticOutClass.InnerClass();
 	}
 }
