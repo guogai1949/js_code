@@ -8,7 +8,7 @@ public class DateDemo {
 	public static void main(String[] args) {
 		SimpleDateFormat cstFormatter    = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'+0800' ");
 		System.out.println(cstFormatter.format(new Date(System.currentTimeMillis())));
-		System.out.println(cstFormatter.format(1533556800000l));
+		System.out.println(cstFormatter.format(1560392641000l));
 	}
 
 }

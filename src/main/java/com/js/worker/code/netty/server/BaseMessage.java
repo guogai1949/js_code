@@ -1,6 +1,7 @@
 package com.js.worker.code.netty.server;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBufferOutputStream;
@@ -66,9 +67,9 @@ public class BaseMessage {
 	
 	public ChannelBuffer buffer() throws Exception {
 		ChannelBufferOutputStream bout = new ChannelBufferOutputStream(ChannelBuffers.directBuffer(length()));
-
+//		ChannelBuffer cb = ChannelBuffers.directBuffer(length());
 		write(bout);
-		
+//		write(cb);
         bout.close();
         return bout.buffer();
 	}
@@ -87,6 +88,22 @@ public class BaseMessage {
 		
 		if(extend != null)
 			bout.write(extend);
+	}
+	
+	protected void write(ChannelBuffer bout) throws IOException {
+		bout.writeInt(length());
+		bout.writeByte(uuidLength());
+		bout.writeByte(serviceNameLength());
+		bout.writeShort(extendLength());
+		
+		bout.writeByte(type);
+		bout.writeByte(info);
+		
+		bout.writeBytes(uuid.getBytes(Charset.forName("UTF-8")));
+		bout.writeBytes(serviceName.getBytes(Charset.forName("UTF-8")));
+		
+		if(extend != null)
+			bout.writeBytes(extend);
 	}
 
 }

@@ -51,7 +51,7 @@ public class NettyServer implements NettyConnection {
         Channel channel = null;
 		while (channel == null) {
 			try {
-				channel = bootstrap.bind(new InetSocketAddress(InetAddress.getByName("192.168.171.54"), port));
+				channel = bootstrap.bind(new InetSocketAddress(InetAddress.getByName("localhost"), port));
 			} catch (Exception e) {
 				port = Utils.retry(port);
 				Utils.sleepMs(1000);

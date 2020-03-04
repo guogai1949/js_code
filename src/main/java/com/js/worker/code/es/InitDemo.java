@@ -23,7 +23,7 @@ public class InitDemo {
     public static RestHighLevelClient getClient() {
 
         RestHighLevelClient client = new RestHighLevelClient(
-                RestClient.builder(new HttpHost("192.168.171.54", 9200, "http")));
+                RestClient.builder(new HttpHost("192.168.171.55", 9300, "http")));
 
         return client;
     }

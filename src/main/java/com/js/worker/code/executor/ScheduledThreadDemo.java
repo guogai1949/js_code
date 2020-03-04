@@ -9,11 +9,13 @@ import java.util.concurrent.TimeUnit;
 
 public class ScheduledThreadDemo {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		// TODO Auto-generated method stub
 		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
 		
 		ScheduledExecutorService executorService1 = new ScheduledThreadPoolExecutor(2);
+		
+		ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
 		
 //		executorService.scheduleAtFixedRate(new Runnable() {
 //
@@ -25,8 +27,8 @@ public class ScheduledThreadDemo {
 //			
 //		}, 1, 1, TimeUnit.SECONDS);
 		
-		for (int i = 0; i < 4; i++) {
-			executorService1.scheduleAtFixedRate(new Runnable() {
+//		for (int i = 0; i < 4; i++) {
+			executor.scheduleAtFixedRate(new Runnable() {
 
 				@Override
 				public void run() {
@@ -35,7 +37,11 @@ public class ScheduledThreadDemo {
 				}
 
 			}, 1, 1, TimeUnit.SECONDS);
+			
+			Thread.sleep(10000);
+			executor.shutdown();
 		}
-	}
+//	}
+	
 
 }

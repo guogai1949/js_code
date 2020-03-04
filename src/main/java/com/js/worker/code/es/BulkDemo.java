@@ -3,9 +3,8 @@ package com.js.worker.code.es;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicLong;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.elasticsearch.action.DocWriteRequest;
 import org.elasticsearch.action.DocWriteResponse;
 import org.elasticsearch.action.bulk.BulkItemResponse;
@@ -27,17 +26,19 @@ import org.elasticsearch.common.xcontent.XContentType;
  */
 public class BulkDemo {
     
-    private static Logger logger = LogManager.getRootLogger();  
+//    private static Logger logger = LogManager.getRootLogger();  
 
     public static void main(String[] args) {
+    	long num = Long.parseLong(args[0]);
+    	AtomicLong count = new AtomicLong(0);
     	SimpleDateFormat cstFormatter    = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'+0800' ");
         try (RestHighLevelClient client = InitDemo.getClient();) {
             
             // 1、创建批量操作请求
             BulkRequest request = new BulkRequest(); 
-            long count = 0;
-            for(;count<20000;) {
-            	count++;
+            long i = 0;
+            for(;i<num;) {
+            	i++;
             	request.add(new IndexRequest("test","type1")
             			.source(XContentType.JSON, "field1","My second blog entry","field2","Still trying this out...","date",new Date(System.currentTimeMillis())));
             }
@@ -69,8 +70,8 @@ public class BulkDemo {
             // 同步请求
             long startTime = System.currentTimeMillis();
             BulkResponse bulkResponse = client.bulk(request);
-            
-            
+//            
+//            
             //4、处理响应
             if(bulkResponse != null) {
                 for (BulkItemResponse bulkItemResponse : bulkResponse) { 
@@ -91,23 +92,30 @@ public class BulkDemo {
                     }
                 }
             }
-            System.out.println("write 10000 cost time:" + (System.currentTimeMillis()-startTime)/1000.0);
+            
+            long cost = (System.currentTimeMillis() - startTime)/1000;
+        	System.out.println("write:" + num + ",cost:" + cost + ", tps:" + num/cost/1.0);
             
             //异步方式发送批量操作请求
-            /*
-            ActionListener<BulkResponse> listener = new ActionListener<BulkResponse>() {
-                @Override
-                public void onResponse(BulkResponse bulkResponse) {
-                    
-                }
-            
-                @Override
-                public void onFailure(Exception e) {
-                    
-                }
-            };
-            client.bulkAsync(request, listener);
-            */
+
+//            ActionListener<BulkResponse> listener = new ActionListener<BulkResponse>() {
+//                @Override
+//                public void onResponse(BulkResponse bulkResponse) {
+//                	System.out.println("==================");
+//                    count.incrementAndGet();
+//                    if(count.get() == num) {
+//                    	long cost = (System.currentTimeMillis() - startTime)/1000;
+//                    	System.out.println("write:" + num + ",cost:" + cost + ", tps:" + num/cost/1.0);
+//                    }
+//                }
+//            
+//                @Override
+//                public void onFailure(Exception e) {
+//                    
+//                }
+//            };
+//            client.bulkAsync(request, listener);
+
             
         } catch (IOException e) {
             e.printStackTrace();
